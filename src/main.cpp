@@ -5,5 +5,6 @@ int main(int argc, char* argv[]) {
 	
 	CApplicationProcessesManager applicationProcessesManager;
 	applicationProcessesManager.start();
+
 	return 0;
 }

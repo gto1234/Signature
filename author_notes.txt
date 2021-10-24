@@ -1,0 +1,1 @@
+Project uses boost, to build it in msvc "BOOST" environment variable should be defined
