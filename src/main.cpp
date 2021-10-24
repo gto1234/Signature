@@ -1,6 +1,9 @@
 #include <iostream>
+#include "ApplicationProcessesManager.h"
 
 int main(int argc, char* argv[]) {
-	std::cout << "Not implemented" << std::endl;
+	
+	CApplicationProcessesManager applicationProcessesManager;
+	applicationProcessesManager.start();
 	return 0;
 }

@@ -19,14 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\inc\TaskManager.cpp" />
+    <ClCompile Include="..\src\ApplicationProcessesManager.cpp" />
+    <ClCompile Include="..\src\DebugLogger.cpp" />
+    <ClCompile Include="..\src\File.cpp" />
+    <ClCompile Include="..\src\FileReader.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Md5Hashier.cpp" />
+    <ClCompile Include="..\src\NonParallelTaskManager.cpp" />
     <ClCompile Include="..\src\TaskWorker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\inc\ApplicationProcessesManager.h" />
+    <ClInclude Include="..\inc\DebugLogger.h" />
+    <ClInclude Include="..\inc\File.h" />
+    <ClInclude Include="..\inc\FileReader.h" />
     <ClInclude Include="..\inc\Hashier.h" />
     <ClInclude Include="..\inc\Md5Hashier.h" />
+    <ClInclude Include="..\inc\NonParallelTaskManager.h" />
     <ClInclude Include="..\inc\Reader.h" />
     <ClInclude Include="..\inc\TaskManager.h" />
     <ClInclude Include="..\inc\TaskWorker.h" />

@@ -1,20 +1,20 @@
-
-#include "Md5Hashier.h"
+#include "NonParallelTaskManager.h"
 #include "DebugLogger.h"
+CNonParallelTaskManager::CNonParallelTaskManager() {
+	CDebugLogger::log("Called " + std::string(__FUNCSIG__));
+	CDebugLogger::log("Leaved " + std::string(__FUNCSIG__));
 
-CMd5Hashier::CMd5Hashier() {
+}
+
+CNonParallelTaskManager::~CNonParallelTaskManager() {
 	CDebugLogger::log("Called " + std::string(__FUNCSIG__));
 	CDebugLogger::log("Leaved " + std::string(__FUNCSIG__));
 }
-CMd5Hashier::~CMd5Hashier() {
-	CDebugLogger::log("Called " + std::string(__FUNCSIG__));
-	CDebugLogger::log("Leaved " + std::string(__FUNCSIG__));
-}
 
-//TODO: link,Include Boost, get md5 here
-std::string CMd5Hashier::calculate(const std::string& incomingBuffer)
+void CNonParallelTaskManager::addInputData(const std::string& inputData)
 {
 	CDebugLogger::log("Called " + std::string(__FUNCSIG__));
 	CDebugLogger::log("Leaved " + std::string(__FUNCSIG__));
-	return std::string("test");
+	//TODO: implement adding
 }
+
