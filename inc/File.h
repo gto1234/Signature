@@ -12,6 +12,8 @@ public:
 	CFile& operator=(const CFile& f) = delete;
 
 	std::string read(size_t bytesSize);
+	void write(const std::string& outString);
+
 	bool endReached();
 private:
 	FILE* filePointer;
