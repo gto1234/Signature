@@ -10,7 +10,8 @@ CFileReader::~CFileReader()
 {
 }
 
-void CFileReader::read() {
+void CFileReader::read() 
+{
 	CFile inputFile("d:\\in.txt", "rt"); //TODO: set path
 
 	try {

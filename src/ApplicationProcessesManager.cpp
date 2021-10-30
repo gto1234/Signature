@@ -8,10 +8,12 @@
 #include "NonParallelTaskManager.h"
 #include "FileWriter.h"
 
-CApplicationProcessesManager::CApplicationProcessesManager() {
+CApplicationProcessesManager::CApplicationProcessesManager() 
+{
 }
 
-CApplicationProcessesManager::~CApplicationProcessesManager() {
+CApplicationProcessesManager::~CApplicationProcessesManager() 
+{
 
 }
 
@@ -21,15 +23,18 @@ void runThreadReader(std::shared_ptr<IReader> reader)
 	reader->read();
 }
 
-void runThreadWorker(std::shared_ptr<CTaskWorker> worker) {
+void runThreadWorker(std::shared_ptr<CTaskWorker> worker) 
+{
 	worker->processTaskNode();
 }
 
-void runThreadWriter(std::shared_ptr<IWriter> writer) {
+void runThreadWriter(std::shared_ptr<IWriter> writer) 
+{
 	writer->write();
 }
 
-void CApplicationProcessesManager::start() {
+void CApplicationProcessesManager::start() 
+{
 	std::shared_ptr<ITaskManager> taskManager = std::make_shared<CNonParallelTaskManager>();
 	std::shared_ptr<IReader> fileReader = std::make_shared<CFileReader>(taskManager, 12); //TODO: unbind constant
 

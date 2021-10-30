@@ -3,7 +3,8 @@
 
 #include "TaskManager.h"
 
-class CTaskWorker {
+class CTaskWorker 
+{
 public:
 	CTaskWorker(std::shared_ptr<ITaskManager> taskManagerPointer);
 	~CTaskWorker();

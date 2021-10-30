@@ -6,9 +6,11 @@
 
 
 
-CMd5Hashier::CMd5Hashier() {
+CMd5Hashier::CMd5Hashier() 
+{
 }
-CMd5Hashier::~CMd5Hashier() {
+CMd5Hashier::~CMd5Hashier() 
+{
 }
 
 std::string CMd5Hashier::toString(const boost::uuids::detail::md5::digest_type& digest)

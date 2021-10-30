@@ -3,7 +3,8 @@
 
 #include "TaskManager.h"
 
-class IReader {
+class IReader 
+{
 public:		
 	virtual ~IReader() {};
 

@@ -9,7 +9,8 @@
 /*
 * This task manager is initial implementation to make and easy test common buisness-logic. it is not fully optimized and should replaced by CParallelTaskManager
 */
-class CNonParallelTaskManager : public ITaskManager {
+class CNonParallelTaskManager : public ITaskManager 
+{
 public:
 	CNonParallelTaskManager();
 	~CNonParallelTaskManager();

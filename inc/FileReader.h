@@ -4,7 +4,8 @@
 #include "Reader.h"
 #include "TaskManager.h"
 
-class CFileReader : public  IReader {
+class CFileReader : public  IReader 
+{
 public:
 	CFileReader(std::shared_ptr<ITaskManager> taskManagerPointer, unsigned long int partitionSize);
 	~CFileReader();

@@ -3,7 +3,8 @@
 #include <thread>
 
 #include "TaskWorker.h"
-class CApplicationProcessesManager { //TODO: Make singleton
+class CApplicationProcessesManager 
+{ //TODO: Make singleton
 public:
 	CApplicationProcessesManager();
 	~CApplicationProcessesManager();

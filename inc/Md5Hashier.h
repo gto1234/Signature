@@ -2,7 +2,8 @@
 #include <boost/uuid/detail/md5.hpp>
 #include "Hashier.h"
 
-class CMd5Hashier : public IHashier {
+class CMd5Hashier : public IHashier
+{
 public:
 	CMd5Hashier();
 	~CMd5Hashier();

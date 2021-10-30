@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-class IWriter {
+class IWriter 
+{
 public:
 	virtual ~IWriter() {};
 

@@ -4,13 +4,15 @@
 
 #include "Md5Hashier.h"
 
-class CTaskNode {
+class CTaskNode 
+{
 public:
 	CTaskNode();
 	CTaskNode(const std::string& inputData);
 	~CTaskNode();
 
-	enum class EState {
+	enum class EState 
+	{
 		ON_IDLE,
 		NEW_VALUE,
 		TAKEN_BY_HASHIER, //will used in multithread

@@ -2,7 +2,8 @@
 #include <string>
 
 #include "TaskNode.h"
-class ITaskManager {
+class ITaskManager 
+{
 public:
 	virtual ~ITaskManager() {};
 	

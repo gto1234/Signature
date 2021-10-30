@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 
-class IHashier {
+class IHashier 
+{
 public:
 	virtual ~IHashier() {}
 

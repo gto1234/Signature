@@ -1,10 +1,12 @@
 #include "NonParallelTaskManager.h"
 #include "DebugLogger.h"
-CNonParallelTaskManager::CNonParallelTaskManager() : stopApplicationFlag{ false }, readingFinished{ false } {
+CNonParallelTaskManager::CNonParallelTaskManager() : stopApplicationFlag{ false }, readingFinished{ false } 
+{
 	singleTaskNode = std::make_shared<CTaskNode>();
 }
 
-CNonParallelTaskManager::~CNonParallelTaskManager() {
+CNonParallelTaskManager::~CNonParallelTaskManager() 
+{
 }
 
 void CNonParallelTaskManager::addInputData(const std::string& inputData)
@@ -16,7 +18,8 @@ void CNonParallelTaskManager::addInputData(const std::string& inputData)
 	//TODO: implement adding
 }
 
-std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForHash() {
+std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForHash() 
+{
 
 	while ((!this->readingFinished) && (singleTaskNode->getState() != CTaskNode::EState::NEW_VALUE));
 
@@ -29,7 +32,8 @@ std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForHash() {
 }
 
 //Writer get ready data
-std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForWrite() {
+std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForWrite() 
+{
 	while ((!this->readingFinished) && (singleTaskNode->getState() != CTaskNode::EState::HASH_CALCULATED));
 
 	if (singleTaskNode->getState() == CTaskNode::EState::HASH_CALCULATED) {
@@ -41,7 +45,8 @@ std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForWrite() {
 }
 
 //Reader should call it when reasing is finished
-void CNonParallelTaskManager::indicateReadingFinished() {
+void CNonParallelTaskManager::indicateReadingFinished() 
+{
 	this->readingFinished = true;
 }
 

@@ -3,7 +3,8 @@
 #include "TaskManager.h"
 #include "Writer.h"
 
-class CFileWriter : public IWriter {
+class CFileWriter : public IWriter 
+{
 public:
 	CFileWriter(std::shared_ptr<ITaskManager> taskManagerPointer);
 	~CFileWriter();
