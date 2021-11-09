@@ -2,7 +2,9 @@
 #include "DebugLogger.h"
 #include "File.h"
 
-CFileWriter::CFileWriter(std::shared_ptr<ITaskManager> taskManagerPointer) : taskManagerPointer {taskManagerPointer}
+CFileWriter::CFileWriter(std::shared_ptr<ITaskManager> taskManagerPointer, const std::string& fileName) :
+	taskManagerPointer {taskManagerPointer},
+	fileName { fileName }
 {
 }
 
@@ -12,7 +14,7 @@ CFileWriter::~CFileWriter()
 
 void CFileWriter::write()
 {
-	CFile outputFile("d:\\out.txt", "wt"); //TODO: set path
+	CFile outputFile(this->fileName, "wt"); //TODO: set path
 
 	do
 	{

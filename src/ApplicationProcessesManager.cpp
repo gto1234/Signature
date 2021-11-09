@@ -8,8 +8,8 @@
 #include "NonParallelTaskManager.h"
 #include "FileWriter.h"
 
-CApplicationProcessesManager::CApplicationProcessesManager() 
-{
+CApplicationProcessesManager::CApplicationProcessesManager(std::shared_ptr<CApplicationSettings> appSettings) : appSettings { appSettings }
+{	
 }
 
 CApplicationProcessesManager::~CApplicationProcessesManager() 
@@ -36,12 +36,12 @@ void runThreadWriter(std::shared_ptr<IWriter> writer)
 void CApplicationProcessesManager::start() 
 {
 	std::shared_ptr<ITaskManager> taskManager = std::make_shared<CNonParallelTaskManager>();
-	std::shared_ptr<IReader> fileReader = std::make_shared<CFileReader>(taskManager, 12); //TODO: unbind constant
+	std::shared_ptr<IReader> fileReader = std::make_shared<CFileReader>(taskManager, this->appSettings->getInputFileName(), this->appSettings->getBlockSize());
 
 	//Formirate dynamicly cout of workers
 	std::shared_ptr<CTaskWorker> worker = std::make_shared<CTaskWorker>(taskManager);
 
-	std::shared_ptr<IWriter> writer = std::make_shared<CFileWriter>(taskManager);
+	std::shared_ptr<IWriter> writer = std::make_shared<CFileWriter>(taskManager, this->appSettings->getOutputFileName());
 
 	this->threadStorage.emplace_back(std::thread(runThreadReader, fileReader));
 	this->threadStorage.emplace_back(std::thread(runThreadWorker, worker));

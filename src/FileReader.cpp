@@ -2,7 +2,10 @@
 #include "File.h"
 #include "DebugLogger.h"
 
-CFileReader::CFileReader(std::shared_ptr<ITaskManager> taskManagerPointer, unsigned long int partitionSize) : taskManagerPointer{ taskManagerPointer }, partitionSize{partitionSize}
+CFileReader::CFileReader(std::shared_ptr<ITaskManager> taskManagerPointer, const std::string& fileName, unsigned long int partitionSize) : 
+	taskManagerPointer{ taskManagerPointer }, 
+	fileName{ fileName },
+	partitionSize{partitionSize}
 {
 }
 
@@ -12,7 +15,7 @@ CFileReader::~CFileReader()
 
 void CFileReader::read() 
 {
-	CFile inputFile("d:\\in.txt", "rt"); //TODO: set path
+	CFile inputFile(this->fileName, "rt");
 
 	try {
 		while (!inputFile.endReached()) {

@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ApplicationProcessesManager.cpp" />
+    <ClCompile Include="..\src\ApplicationSettings.cpp" />
+    <ClCompile Include="..\src\CommandLineProcessor.cpp" />
     <ClCompile Include="..\src\DebugLogger.cpp" />
     <ClCompile Include="..\src\File.cpp" />
     <ClCompile Include="..\src\FileReader.cpp" />
@@ -32,6 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\ApplicationProcessesManager.h" />
+    <ClInclude Include="..\inc\ApplicationSettings.h" />
+    <ClInclude Include="..\inc\CommandLineProcessor.h" />
     <ClInclude Include="..\inc\DebugLogger.h" />
     <ClInclude Include="..\inc\File.h" />
     <ClInclude Include="..\inc\FileReader.h" />

@@ -7,7 +7,7 @@
 class CFileReader : public  IReader 
 {
 public:
-	CFileReader(std::shared_ptr<ITaskManager> taskManagerPointer, unsigned long int partitionSize);
+	CFileReader(std::shared_ptr<ITaskManager> taskManagerPointer, const std::string& fileName, unsigned long int partitionSize);
 	~CFileReader();
 
 	//Method that will read (thread entrypoint?)
@@ -15,4 +15,5 @@ public:
 private:
 	std::shared_ptr<ITaskManager> taskManagerPointer;
 	unsigned long int partitionSize;
+	std::string fileName;
 };
