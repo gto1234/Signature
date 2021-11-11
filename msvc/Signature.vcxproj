@@ -22,6 +22,9 @@
     <ClCompile Include="..\src\ApplicationProcessesManager.cpp" />
     <ClCompile Include="..\src\ApplicationSettings.cpp" />
     <ClCompile Include="..\src\CommandLineProcessor.cpp" />
+    <ClCompile Include="..\src\CriticalSectionCreator.cpp" />
+    <ClCompile Include="..\src\CustomLocker.cpp" />
+    <ClCompile Include="..\src\CustomWindowsCriticalSection.cpp" />
     <ClCompile Include="..\src\DebugLogger.cpp" />
     <ClCompile Include="..\src\File.cpp" />
     <ClCompile Include="..\src\FileReader.cpp" />
@@ -29,6 +32,7 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Md5Hashier.cpp" />
     <ClCompile Include="..\src\NonParallelTaskManager.cpp" />
+    <ClCompile Include="..\src\ParallelTaskManager.cpp" />
     <ClCompile Include="..\src\TaskNode.cpp" />
     <ClCompile Include="..\src\TaskWorker.cpp" />
   </ItemGroup>
@@ -36,6 +40,10 @@
     <ClInclude Include="..\inc\ApplicationProcessesManager.h" />
     <ClInclude Include="..\inc\ApplicationSettings.h" />
     <ClInclude Include="..\inc\CommandLineProcessor.h" />
+    <ClInclude Include="..\inc\CriticalSectionCreator.h" />
+    <ClInclude Include="..\inc\CustomCriticalSection.h" />
+    <ClInclude Include="..\inc\CustomLocker.h" />
+    <ClInclude Include="..\inc\CustomWindowsCriticalSection.h" />
     <ClInclude Include="..\inc\DebugLogger.h" />
     <ClInclude Include="..\inc\File.h" />
     <ClInclude Include="..\inc\FileReader.h" />
@@ -43,6 +51,7 @@
     <ClInclude Include="..\inc\Hashier.h" />
     <ClInclude Include="..\inc\Md5Hashier.h" />
     <ClInclude Include="..\inc\NonParallelTaskManager.h" />
+    <ClInclude Include="..\inc\ParallelTaskManager.h" />
     <ClInclude Include="..\inc\Reader.h" />
     <ClInclude Include="..\inc\TaskManager.h" />
     <ClInclude Include="..\inc\TaskNode.h" />
