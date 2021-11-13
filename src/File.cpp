@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdint.h>
 #include <vector>
 
@@ -5,10 +6,19 @@
 #include "DebugLogger.h"
 
 
-CFile::CFile(const std::string& filePath, const std::string& accessMode) : filePointer(nullptr)
+CFile::CFile(const std::string& filePath, const EOpenMode mode) : filePointer(nullptr)
 {
-	//TODO: rework mode R/W
-	fopen_s(&this->filePointer, filePath.c_str(), accessMode.c_str());
+	switch (mode)
+	{
+	case EOpenMode::READ:
+		fopen_s(&this->filePointer, filePath.c_str(), "rb");
+		break;
+	case EOpenMode::WRITE:
+		fopen_s(&this->filePointer, filePath.c_str(), "wt");
+		break;
+	default:
+		throw CFileSafeException("Unknown opening mode");
+	}
 
 	if (this->filePointer == nullptr)
 	{
@@ -17,8 +27,13 @@ CFile::CFile(const std::string& filePath, const std::string& accessMode) : fileP
 }
 CFile::~CFile()
 {
-	if (this->filePointer != nullptr)
-		fclose(this->filePointer);
+	if (this->filePointer != nullptr) {
+		int ret = fclose(this->filePointer);
+		if (ret == EOF)
+		{
+			throw new CFileSafeException("File closing error");
+		}
+	}
 }
 
 std::string CFile::read(size_t bytesSize)
@@ -32,23 +47,26 @@ std::string CFile::read(size_t bytesSize)
 		if (!feof(this->filePointer)) {
 			throw new CFileSafeException("File read error");
 		}
-		else {
+		else {			
 			for (unsigned int i = 0; i < countReadValues - actualRead; i++) {
-				readbuffer[actualRead + i] = ' ';
+				readbuffer[actualRead + i] = 0;
 			}
 		}
 	}
 
-	//TODO: not optimized - rework to single buffer
 	for (unsigned int i = 0; i < bytesSize; i++)
 		outBuffer += readbuffer[i];
 
 	return outBuffer;
 }
 
-void CFile::write(const std::string& outString) {
-	//TODO: check for all IO exceptions
-	fputs(outString.c_str(), this->filePointer);
+void CFile::write(const std::string& outString) 
+{
+	int ret = fputs(outString.c_str(), this->filePointer);
+	if (ret == EOF)
+	{
+		throw new CFileSafeException("File write error");
+	}
 }
 
 bool CFile::endReached()

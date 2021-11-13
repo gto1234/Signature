@@ -3,9 +3,15 @@
 #include <stdexcept>
 
 class CFile
-{
+{	
 public:
-	CFile(const std::string& sPath, const std::string& sMode);
+	enum class  EOpenMode
+	{
+		READ,
+		WRITE,
+	};
+
+	CFile(const std::string& path, const EOpenMode mode);
 	~CFile();
 
 	CFile(const CFile& f) = delete;

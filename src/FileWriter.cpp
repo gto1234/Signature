@@ -14,16 +14,17 @@ CFileWriter::~CFileWriter()
 
 void CFileWriter::write()
 {
-	CFile outputFile(this->fileName, "wt"); //TODO: set path
+	CFile outputFile(this->fileName, CFile::EOpenMode::WRITE);
 
 	do
 	{
 		std::shared_ptr<CTaskNode> taskNode = this->taskManagerPointer->getForWrite();
 
-		if (taskNode == nullptr) {
-
+		if (taskNode == nullptr) 
+		{
 		}
-		else {			
+		else 
+		{			
 			outputFile.write(taskNode->getHash()); //TODO: handle exception
 			taskNode->reset();
 		}

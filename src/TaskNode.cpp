@@ -8,11 +8,11 @@ CTaskNode::CTaskNode() : inputData{ "" }, hash{ "" }, taskNodeState{ EState::ON_
 }
 CTaskNode::CTaskNode(const std::string& inputData) : inputData{ inputData }, hash{ "" }, taskNodeState{ EState::NEW_VALUE }
 {
-
+	this->hasier = std::make_shared<CMd5Hashier>();
 }
 CTaskNode::~CTaskNode() 
 {
-
+	this->hasier = std::make_shared<CMd5Hashier>();
 }
 
 

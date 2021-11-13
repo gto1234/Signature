@@ -58,3 +58,8 @@ bool CNonParallelTaskManager::isApplicationActive()
 	}
 	return !this->stopApplicationFlag;
 }
+
+unsigned long CNonParallelTaskManager::getPossibleCountOfWorkerThreads()
+{
+	return 1;
+}

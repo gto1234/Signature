@@ -29,6 +29,8 @@ public:
 
 	//Ending of reading is not equal ending of application. This method indicates that all threads could be stopped
 	bool isApplicationActive();
+
+	unsigned long getPossibleCountOfWorkerThreads();
 private:
 	bool readingFinished;
 	bool stopApplicationFlag;

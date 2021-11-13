@@ -21,4 +21,7 @@ public:
 	
 	//Ending of reading is not equal ending of application. This method indicates that all threads could be stopped
 	virtual bool isApplicationActive() = 0;
+
+	//Get count of available threads for calculation (minimum always 1)
+	virtual unsigned long getPossibleCountOfWorkerThreads() = 0;
 };
