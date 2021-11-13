@@ -22,8 +22,7 @@ std::string CMd5Hashier::toString(const boost::uuids::detail::md5::digest_type& 
 	return result;
 }
 
-//TODO: link,Include Boost, get md5 here
-std::string CMd5Hashier::calculate(const std::string& incomingBuffer)
+std::string CMd5Hashier::calculate(const std::vector<uint8_t>& incomingBuffer)
 {
 	boost::uuids::detail::md5 hash;
 	boost::uuids::detail::md5::digest_type digest;

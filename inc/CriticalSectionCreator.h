@@ -3,6 +3,9 @@
 
 #include "CustomCriticalSection.h"
 
+/*
+* generates custom critical section
+*/
 class CCriticalSectionCreator
 {
 public:

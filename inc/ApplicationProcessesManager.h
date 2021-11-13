@@ -4,14 +4,20 @@
 
 #include "ApplicationSettings.h"
 
-#include "TaskWorker.h"
+/*
+* Runs application threads, joining its completion
+*/
 class CApplicationProcessesManager 
-{ //TODO: Make singleton
+{
 public:
+	/*Initialize application by incoming settings*/
 	CApplicationProcessesManager(std::shared_ptr<CApplicationSettings> appSettings);
+
 	~CApplicationProcessesManager();
 
+	/*start target application execution*/
 	void start();
+
 private:
 	std::shared_ptr<CApplicationSettings> appSettings;
 	std::vector<std::thread> threadStorage;

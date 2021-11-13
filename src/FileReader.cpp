@@ -3,6 +3,7 @@
 #include "FileReader.h"
 #include "File.h"
 #include "DebugLogger.h"
+#include "ExceptionStorage.h"
 
 CFileReader::CFileReader(std::shared_ptr<ITaskManager> taskManagerPointer, const std::string& fileName, unsigned long int partitionSize) : 
 	taskManagerPointer{ taskManagerPointer }, 
@@ -17,19 +18,32 @@ CFileReader::~CFileReader()
 
 void CFileReader::read() 
 {
-	CFile inputFile(this->fileName, CFile::EOpenMode::READ);
-	unsigned long int s = 0;
+	try 
+	{
+		CFile inputFile(this->fileName, CFile::EOpenMode::READ);
 
-	try {
 		while (!inputFile.endReached()) {
-			std::string inputData = inputFile.read(this->partitionSize);
-			s += inputData.length();
-			this->taskManagerPointer->addInputData(inputData);
+			try {
+				std::vector<uint8_t> inputData = inputFile.read(this->partitionSize); //Read partition by partition
+				this->taskManagerPointer->addInputData(inputData); //add it to processing
+			}
+			catch (CFileReadEndOnBorder& e)
+			{
+				//feof will not raised if last byte that read was last in partition, so it exception hadlong restrict adding zero-filled partition
+				break;
+			}
+			
 		}
 		this->taskManagerPointer->indicateReadingFinished();
 	}
-	catch (CFileSafeException &readexcept) {
-		//TODO: push it to exceptionlist, stop program
-		std::cout << "exception met";
+	catch (CFileSafeException& fileOpenExcept) //opening file error or reading error
+	{
+		this->taskManagerPointer->indicateReadingFinished(); //We can put here forcestop but 
+		CExceptionStorage::getInstance().push(fileOpenExcept);
+	}
+	catch (std::exception& commonException) //All other exceptions
+	{
+		CExceptionStorage::getInstance().push(commonException);
+		this->taskManagerPointer->forceStop();
 	}
 }

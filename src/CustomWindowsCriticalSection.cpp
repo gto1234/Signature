@@ -9,6 +9,7 @@ void CCustomWindowsCriticalSection::lock()
 {
 	EnterCriticalSection(&this->windowsCriticalSection);
 }
+
 void CCustomWindowsCriticalSection::unlock()
 {
 	LeaveCriticalSection(&this->windowsCriticalSection);

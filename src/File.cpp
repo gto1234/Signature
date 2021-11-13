@@ -1,12 +1,14 @@
 #include <iostream>
 #include <stdint.h>
-#include <vector>
 
 #include "File.h"
 #include "DebugLogger.h"
 
 
-CFile::CFile(const std::string& filePath, const EOpenMode mode) : filePointer(nullptr)
+CFile::CFile(const std::string& filePath, const EOpenMode mode) : 
+	filePointer{ nullptr },
+	fileName{ filePath },
+	openedMode{ mode }
 {
 	switch (mode)
 	{
@@ -22,50 +24,53 @@ CFile::CFile(const std::string& filePath, const EOpenMode mode) : filePointer(nu
 
 	if (this->filePointer == nullptr)
 	{
-		throw CFileSafeException("Could not open file");
+		throw CFileSafeException("Could not open file " + filePath);
 	}
 }
 CFile::~CFile()
 {
 	if (this->filePointer != nullptr) {
-		int ret = fclose(this->filePointer);
-		if (ret == EOF)
-		{
-			throw new CFileSafeException("File closing error");
-		}
-	}
+		fclose(this->filePointer);
+	}	
 }
 
-std::string CFile::read(size_t bytesSize)
+std::vector<uint8_t> CFile::read(size_t bytesSize)
 {
 	const uint8_t countReadValues = 1;
 	std::string outBuffer = "";
 	std::vector<uint8_t> readbuffer(bytesSize);
 
+	if (this->openedMode != EOpenMode::READ)
+		throw CFileSafeException("File " + this->fileName + " not opened for read");
+
 	size_t actualRead = fread(readbuffer.data(), bytesSize, countReadValues, this->filePointer);
 	if (actualRead < countReadValues) {
 		if (!feof(this->filePointer)) {
-			throw new CFileSafeException("File read error");
+			throw CFileSafeException("File " + this->fileName + " read error");
 		}
-		else {			
+		else {
+			if (actualRead == 0) {
+				throw CFileReadEndOnBorder("");
+			}
+
 			for (unsigned int i = 0; i < countReadValues - actualRead; i++) {
 				readbuffer[actualRead + i] = 0;
 			}
 		}
 	}
 
-	for (unsigned int i = 0; i < bytesSize; i++)
-		outBuffer += readbuffer[i];
-
-	return outBuffer;
+	return readbuffer;
 }
 
 void CFile::write(const std::string& outString) 
 {
+	if (this->openedMode != EOpenMode::WRITE)
+		throw CFileSafeException("File " + this->fileName + " not opened for write");
+
 	int ret = fputs(outString.c_str(), this->filePointer);
 	if (ret == EOF)
 	{
-		throw new CFileSafeException("File write error");
+		throw CFileSafeException("File " + this->fileName + " write error");
 	}
 }
 

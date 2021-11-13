@@ -8,7 +8,8 @@ public:
 	CMd5Hashier();
 	~CMd5Hashier();
 
-	virtual std::string calculate(const std::string& incomingBuffer);
+	/*calculate hash from put data block*/
+	virtual std::string calculate(const std::vector<uint8_t>& incomingBuffer);
 
 private:
 	std::string toString(const boost::uuids::detail::md5::digest_type& digest);

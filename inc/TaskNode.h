@@ -1,26 +1,33 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <vector>
 
 #include "Md5Hashier.h"
 
+/*
+* Processing data block object
+*/
 class CTaskNode 
 {
 public:
+	//For non parallel we have one object for all application time life
 	CTaskNode();
-	CTaskNode(const std::string& inputData);
+
+	//For parallel we have separate object for each block
+	CTaskNode(const std::vector<uint8_t>& inputData);
+
 	~CTaskNode();
 
 	enum class EState 
 	{
 		ON_IDLE,
 		NEW_VALUE,
-		TAKEN_BY_HASHIER, //will used in multithread
 		HASH_CALCULATED,
 	};
 
 	//Set new data, switch it to NEW_VALUE
-	void setInputData(const std::string& inputData);
+	void setInputData(const std::vector<uint8_t>& inputData);
 
 	//calculates hash
 	void calculate();
@@ -34,8 +41,8 @@ public:
 	//return current state
 	EState getState();
 private:
-	std::string inputData;
+	std::vector<uint8_t> inputData;
 	std::string hash;
 	EState taskNodeState;
-	std::shared_ptr<IHashier> hasier; //TODO: hashier is the same for all... move it to global
+	std::shared_ptr<IHashier> hasier;
 };

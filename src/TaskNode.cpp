@@ -2,11 +2,11 @@
 
 #include "TaskNode.h"
 #include "DebugLogger.h"
-CTaskNode::CTaskNode() : inputData{ "" }, hash{ "" }, taskNodeState{ EState::ON_IDLE }
+CTaskNode::CTaskNode() : hash{ "" }, taskNodeState{ EState::ON_IDLE }
 {
 	this->hasier = std::make_shared<CMd5Hashier>();
 }
-CTaskNode::CTaskNode(const std::string& inputData) : inputData{ inputData }, hash{ "" }, taskNodeState{ EState::NEW_VALUE }
+CTaskNode::CTaskNode(const std::vector<uint8_t>& inputData) : inputData{ inputData }, hash{ "" }, taskNodeState{ EState::NEW_VALUE }
 {
 	this->hasier = std::make_shared<CMd5Hashier>();
 }
@@ -16,7 +16,7 @@ CTaskNode::~CTaskNode()
 }
 
 
-void CTaskNode::setInputData(const std::string& inputData) 
+void CTaskNode::setInputData(const std::vector<uint8_t>& inputData)
 {
 	this->inputData = inputData;
 	this->taskNodeState = EState::NEW_VALUE;

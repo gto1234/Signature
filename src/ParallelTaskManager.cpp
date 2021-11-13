@@ -6,11 +6,14 @@
 #include "CriticalSectionCreator.h"
 #include "CustomLocker.h"
 
+
 CParallelTaskManager::CParallelTaskManager() : 
-	readingFinished { false }
+	readingFinished{ false },
+	forcedStop{ false }
 {
 	this->taskNodesCriticalSectionIn = CCriticalSectionCreator::create();
 	this->taskNodesCriticalSectionOut = CCriticalSectionCreator::create();
+	this->forceStopCriticalSection = CCriticalSectionCreator::create();
 
 	countPossibleAmountOfWorkerThreads();
 	limitBufferNodesSize = 2 * this->countPossibleWorkerThreads;
@@ -22,7 +25,7 @@ CParallelTaskManager::~CParallelTaskManager()
 }
 
 //reader puts data, task manager deciding how to layout it
-void CParallelTaskManager::addInputData(const std::string& inputData)
+void CParallelTaskManager::addInputData(const std::vector<uint8_t>& inputData)
 {
 	//add check for max buffer reached
 	//If reading faster than we should wait, else allocated memory will growth
@@ -32,9 +35,17 @@ void CParallelTaskManager::addInputData(const std::string& inputData)
 	CCustomLocker outLocker(this->taskNodesCriticalSectionOut); //lock access for Out deque
 
 	//Create new node and add it for both In and Out deque
-	std::shared_ptr<CTaskNode> newNode = std::make_shared<CTaskNode>(inputData);
-	this->taskNodesIn.emplace_back(newNode);
-	this->taskNodesOut.emplace_back(newNode);
+	try
+	{
+		std::shared_ptr<CTaskNode> newNode = std::make_shared<CTaskNode>(inputData);
+		this->taskNodesIn.emplace_back(newNode);
+		this->taskNodesOut.emplace_back(newNode);
+	}
+	catch (std::exception& commonException)
+	{
+		CExceptionStorage::getInstance().push(commonException);
+		this->forceStop();
+	}
 
 }
 
@@ -84,7 +95,7 @@ void CParallelTaskManager::indicateReadingFinished()
 //Ending of reading is not equal ending of application. This method indicates that all threads could be stopped
 bool CParallelTaskManager::isApplicationActive()
 {
-	return !((this->readingFinished) && (this->taskNodesIn.empty()) && (this->taskNodesOut.empty()));
+	return !(((this->readingFinished) && (this->taskNodesIn.empty()) && (this->taskNodesOut.empty())) || (this->forcedStop));
 	
 }
 
@@ -92,7 +103,7 @@ void CParallelTaskManager::countPossibleAmountOfWorkerThreads()
 {
 	SYSTEM_INFO systemInfoStructure;
 
-	GetSystemInfo(&systemInfoStructure); //TODO: wrap exceptions
+	GetSystemInfo(&systemInfoStructure);
 
 	unsigned long ret = systemInfoStructure.dwNumberOfProcessors;
 	if (ret >= 3) ret -= 2; //Writer and Reader threads place
@@ -104,4 +115,10 @@ void CParallelTaskManager::countPossibleAmountOfWorkerThreads()
 unsigned long CParallelTaskManager::getPossibleCountOfWorkerThreads()
 {
 	return this->countPossibleWorkerThreads;
+}
+
+void CParallelTaskManager::forceStop() 
+{
+	CCustomLocker forceStopLocaker(this->forceStopCriticalSection);
+	this->forcedStop = true;
 }

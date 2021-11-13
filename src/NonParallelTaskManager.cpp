@@ -9,13 +9,12 @@ CNonParallelTaskManager::~CNonParallelTaskManager()
 {
 }
 
-void CNonParallelTaskManager::addInputData(const std::string& inputData)
+void CNonParallelTaskManager::addInputData(const std::vector<uint8_t>& inputData)
 {
 	while (singleTaskNode->getState() != CTaskNode::EState::ON_IDLE)
 		continue;
 
 	singleTaskNode->setInputData(inputData);
-	//TODO: implement adding
 }
 
 std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForHash() 
@@ -44,7 +43,7 @@ std::shared_ptr<CTaskNode> CNonParallelTaskManager::getForWrite()
 	}
 }
 
-//Reader should call it when reasing is finished
+//Reader should call it when reading is finished
 void CNonParallelTaskManager::indicateReadingFinished() 
 {
 	this->readingFinished = true;
@@ -53,7 +52,6 @@ void CNonParallelTaskManager::indicateReadingFinished()
 bool CNonParallelTaskManager::isApplicationActive()
 {
 	if (this->readingFinished && this->singleTaskNode->getState() == CTaskNode::EState::ON_IDLE) {
-		//Critical section?
 		this->stopApplicationFlag = true;
 	}
 	return !this->stopApplicationFlag;
@@ -62,4 +60,10 @@ bool CNonParallelTaskManager::isApplicationActive()
 unsigned long CNonParallelTaskManager::getPossibleCountOfWorkerThreads()
 {
 	return 1;
+}
+
+//Indicate that all thread should stop (exception happend)
+void CNonParallelTaskManager::forceStop()
+{
+	this->stopApplicationFlag = true;
 }

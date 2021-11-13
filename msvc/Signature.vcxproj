@@ -26,6 +26,7 @@
     <ClCompile Include="..\src\CustomLocker.cpp" />
     <ClCompile Include="..\src\CustomWindowsCriticalSection.cpp" />
     <ClCompile Include="..\src\DebugLogger.cpp" />
+    <ClCompile Include="..\src\ExceptionStorage.cpp" />
     <ClCompile Include="..\src\File.cpp" />
     <ClCompile Include="..\src\FileReader.cpp" />
     <ClCompile Include="..\src\FileWriter.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="..\inc\CustomLocker.h" />
     <ClInclude Include="..\inc\CustomWindowsCriticalSection.h" />
     <ClInclude Include="..\inc\DebugLogger.h" />
+    <ClInclude Include="..\inc\ExceptionStorage.h" />
     <ClInclude Include="..\inc\File.h" />
     <ClInclude Include="..\inc\FileReader.h" />
     <ClInclude Include="..\inc\FileWriter.h" />

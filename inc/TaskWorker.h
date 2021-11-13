@@ -7,11 +7,12 @@ class CTaskWorker
 {
 public:
 	CTaskWorker(std::shared_ptr<ITaskManager> taskManagerPointer);
+
 	~CTaskWorker();
 
+	/*Thread entrypoint method*/
 	void processTaskNode();
-	unsigned long int getCounterPartition();
+
 private:
 	std::shared_ptr<ITaskManager> taskManagerPointer;
-	unsigned long int counterPartitions;
 };

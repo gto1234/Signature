@@ -4,6 +4,6 @@
 
 std::shared_ptr<ICustomCriticalSection> CCriticalSectionCreator::create()
 {
-	//For support linux or other from Windows OS should be implemented routine for create different implementations of "CustomCriticalSection interface"
+	//TODO: For support linux or other from Windows OS should be implemented routine for create different implementations of "CustomCriticalSection interface"
 	return std::make_shared<CCustomWindowsCriticalSection>();
 }

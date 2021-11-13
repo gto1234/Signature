@@ -4,10 +4,10 @@
 
 
 CTaskWorker::CTaskWorker(std::shared_ptr<ITaskManager> taskManagerPointer) : 
-	taskManagerPointer { taskManagerPointer },
-	counterPartitions { 0 }
+	taskManagerPointer { taskManagerPointer }
 {
 }
+
 CTaskWorker::~CTaskWorker() 
 {
 }
@@ -24,12 +24,8 @@ void CTaskWorker::processTaskNode()
 		else 
 		{			
 			taskNode->calculate();
-			this->counterPartitions++;
 		}
-	} while (this->taskManagerPointer->isApplicationActive());
+	} 
+	while (this->taskManagerPointer->isApplicationActive());
 }
 
-unsigned long int CTaskWorker::getCounterPartition()
-{
-	return this->counterPartitions;
-}

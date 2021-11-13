@@ -3,11 +3,14 @@
 
 #include "TaskManager.h"
 
+/*
+* interface represends reading incoming data
+*/
 class IReader 
 {
 public:		
 	virtual ~IReader() {};
 
-	//Method that will read (thread entrypoint?)
+	/*Thread entrypoint method*/
 	virtual void read() = 0;
 };
